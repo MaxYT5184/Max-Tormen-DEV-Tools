@@ -1,473 +1,69 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Max Crafter YT - School Safety Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Max Crafter YT - School Safety Tools</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-
-    /* Reset & base */
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
     body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #007bff, #ff0000);
       display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-
-    /* CSS Variables for light and dark mode */
-    :root {
-      --bg: #f0f4ff;
-      --text: #1a202c;
-      --header-bg: linear-gradient(90deg, #1e3a8a, #2563eb);
-      --header-text: #fff;
-      --card-bg: #ffffff;
-      --card-shadow-light: rgba(37, 99, 235, 0.15);
-      --card-shadow-dark: rgba(0,0,0,0.06);
-      --button-bg: linear-gradient(45deg, #2563eb, #1e40af);
-      --button-bg-hover: linear-gradient(45deg, #1e40af, #1e3a8a);
-      --button-shadow: rgba(37, 99, 235, 0.4);
-      --footer-bg: #e0e7ff;
-      --footer-text: #1e3a8a;
-      --footer-border: #cbd5e1;
-      --overlay-bg: rgba(0,0,0,0.15);
-    }
-    body.dark {
-      --bg: #121214;
-      --text: #e4e6eb;
-      --header-bg: linear-gradient(90deg, #2563eb, #1e3a8a);
-      --header-text: #e4e6eb;
-      --card-bg: #1e1e24;
-      --card-shadow-light: rgba(30, 58, 138, 0.5);
-      --card-shadow-dark: rgba(0,0,0,0.3);
-      --button-bg: linear-gradient(45deg, #1e40af, #2563eb);
-      --button-bg-hover: linear-gradient(45deg, #2563eb, #1e40af);
-      --button-shadow: rgba(37, 99, 235, 0.7);
-      --footer-bg: #1e1e24;
-      --footer-text: #a5b4fc;
-      --footer-border: #373a4d;
-      --overlay-bg: rgba(0,0,0,0.35);
-    }
-
-    /* Header */
-    header {
-      background: var(--header-bg);
-      color: var(--header-text);
-      padding: 3rem 1.5rem 3rem 1.5rem;
-      text-align: center;
-      box-shadow: 0 5px 15px var(--card-shadow-light);
-      position: relative;
-      z-index: 10;
-    }
-    header h1 {
-      margin: 0;
-      font-weight: 800;
-      font-size: 3rem;
-      letter-spacing: 1.2px;
-      text-shadow: 0 1px 6px rgba(0,0,0,0.15);
-    }
-    header p {
-      margin-top: 0.5rem;
-      font-size: 1.25rem;
-      font-weight: 500;
-      opacity: 0.9;
-      letter-spacing: 0.05em;
-    }
-
-    /* Dark mode toggle button */
-    #darkToggle {
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      background: transparent;
-      border: 2px solid var(--header-text);
-      border-radius: 30px;
-      color: var(--header-text);
-      padding: 0.35rem 1rem;
-      font-weight: 600;
-      font-size: 0.9rem;
-      cursor: pointer;
-      user-select: none;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      z-index: 15;
-    }
-    #darkToggle:hover,
-    #darkToggle:focus-visible {
-      background-color: var(--header-text);
-      color: var(--header-bg);
-      outline: none;
-    }
-
-    /* Main */
-    main {
-      flex: 1;
-      max-width: 900px;
-      margin: 4rem auto 3rem;
-      padding: 0 1rem;
-      width: 100%;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2.5rem;
-      position: relative;
-      z-index: 5;
-    }
-
-    /* Cards */
-    section.project {
-      background: var(--card-bg);
-      border-radius: 16px;
-      box-shadow:
-        0 4px 10px var(--card-shadow-light),
-        0 1px 3px var(--card-shadow-dark);
-      padding: 2.2rem 2rem 3rem;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-                  box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: default;
-    }
-    section.project:hover {
-      box-shadow:
-        0 12px 28px var(--card-shadow-light),
-        0 6px 12px var(--card-shadow-dark);
-      transform: translateY(-6px);
-    }
-
-    section.project h2 {
-      margin-top: 0;
-      margin-bottom: 1rem;
-      color: #1e3a8a;
-      font-weight: 700;
-      font-size: 1.9rem;
-      letter-spacing: 0.03em;
-      transition: color 0.3s ease;
-    }
-    body.dark section.project h2 {
-      color: #93c5fd;
-    }
-    section.project p {
-      font-size: 1.125rem;
-      line-height: 1.55;
-      color: var(--text);
-      flex-grow: 1;
-      margin-bottom: 2rem;
-      transition: color 0.3s ease;
-    }
-
-    /* Buttons */
-    section.project a.button {
-      align-self: flex-start;
-      background: var(--button-bg);
-      color: white;
-      text-decoration: none;
-      padding: 0.75rem 2rem;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 1.05rem;
-      box-shadow:
-        0 6px 12px var(--button-shadow);
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-      user-select: none;
-    }
-    section.project a.button:hover,
-    section.project a.button:focus-visible {
-      background: var(--button-bg-hover);
-      box-shadow:
-        0 8px 24px var(--button-shadow);
-      outline: none;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--footer-bg);
-      text-align: center;
-      padding: 1.75rem 1rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--footer-text);
-      border-top: 1px solid var(--footer-border);
-      user-select: none;
-      position: relative;
-      z-index: 5;
-    }
-    footer a {
-      color: #2563eb;
-      text-decoration: none;
-      transition: text-decoration 0.2s ease;
-      font-weight: 700;
-    }
-    footer a:hover,
-    footer a:focus-visible {
-      text-decoration: underline;
-      outline: none;
-    }
-
-    /* Back to top button */
-    #toTopBtn {
-      position: fixed;
-      bottom: 2.5rem;
-      right: 2.5rem;
-      background: var(--button-bg);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 48px;
-      height: 48px;
-      font-size: 24px;
-      cursor: pointer;
-      box-shadow: 0 6px 12px var(--button-shadow);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      user-select: none;
-      z-index: 9999;
-    }
-    #toTopBtn.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    #toTopBtn:hover,
-    #toTopBtn:focus-visible {
-      background: var(--button-bg-hover);
-      outline: none;
-    }
-
-    /* Cookie Consent Banner */
-    #cookieConsent {
-      position: fixed;
-      bottom: 1.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--card-bg);
-      color: var(--text);
-      box-shadow:
-        0 4px 12px rgba(0,0,0,0.15);
-      border-radius: 12px;
-      max-width: 480px;
-      padding: 1rem 1.5rem;
-      display: flex;
+      justify-content: center;
       align-items: center;
-      gap: 1rem;
-      font-size: 1rem;
-      z-index: 99999;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.35s ease;
-    }
-    #cookieConsent.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    #cookieConsent p {
-      flex-grow: 1;
-      margin: 0;
-      line-height: 1.3;
-    }
-    #cookieConsent button {
-      background: var(--button-bg);
+      height: 100vh;
       color: white;
+    }
+    .login-box {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px black;
+    }
+    input {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 1rem 0;
       border: none;
-      padding: 0.55rem 1.2rem;
-      border-radius: 40px;
-      font-weight: 700;
-      font-size: 1rem;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #fff;
+      color: #333;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
-      box-shadow:
-        0 4px 10px var(--button-shadow);
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-      user-select: none;
     }
-    #cookieConsent button:hover,
-    #cookieConsent button:focus-visible {
-      background: var(--button-bg-hover);
-      box-shadow:
-        0 6px 18px var(--button-shadow);
-      outline: none;
-    }
-
-    /* Overlay behind cookie banner for focus */
-    #overlay {
-      position: fixed;
-      inset: 0;
-      background: var(--overlay-bg);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.35s ease;
-      z-index: 99990;
-    }
-    #overlay.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 2.2rem;
-      }
-      header p {
-        font-size: 1rem;
-      }
-      main {
-        margin: 2rem auto 3rem;
-        gap: 1.8rem;
-      }
-      section.project {
-        padding: 1.8rem 1.5rem 2.5rem;
-      }
-      section.project h2 {
-        font-size: 1.5rem;
-      }
-      section.project p {
-        font-size: 1rem;
-      }
-      section.project a.button {
-        font-size: 1rem;
-        padding: 0.6rem 1.6rem;
-      }
-      #toTopBtn {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-        bottom: 1.5rem;
-        right: 1.5rem;
-      }
-      #cookieConsent {
-        max-width: 90vw;
-        flex-direction: column;
-        text-align: center;
-        gap: 0.7rem;
-      }
-      #cookieConsent button {
-        width: 100%;
-      }
+    button:hover {
+      background-color: #f0f0f0;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Max Crafter YT</h1>
-    <p>Advanced School Safety Tools — Chrome Extensions</p>
-    <button id="darkToggle" aria-label="Toggle dark mode">Dark Mode</button>
-  </header>
-
-  <main>
-    <section class="project">
-      <h2>Incognito Blocker</h2>
-      <p>An advanced Chrome extension designed to block incognito mode access on school devices, ensuring a safer and more controlled browsing experience for students.</p>
-      <a href="https://github.com/MaxYT5184/Incognito-Blocker" class="button" target="_blank" rel="noopener noreferrer">View on GitHub</a>
-    </section>
-
-    <section class="project">
-      <h2>Teen Minor Safety Extension</h2>
-      <p>A powerful extension that blocks inappropriate websites, promoting a safer online environment for minors in school settings.</p>
-      <a href="https://github.com/MaxYT5184/Teen-Minor-Safety-Extension" class="button" target="_blank" rel="noopener noreferrer">View on GitHub</a>
-    </section>
-  </main>
-
-  <footer>
-    <p>Contact me: <a href="mailto:a.tormen2012@gmail.com">a.tormen2012@gmail.com</a></p>
-  </footer>
-
-  <button id="toTopBtn" aria-label="Back to top">⬆️</button>
-
-  <!-- Cookie Consent Banner -->
-  <div id="cookieConsent" role="dialog" aria-live="polite" aria-label="Cookie consent">
-    <p>We use cookies to improve your experience and know you trust our school safety projects. By clicking Accept, you agree to our use of cookies.</p>
-    <button id="acceptCookies" aria-label="Accept cookies">Accept</button>
+  <div class="login-box">
+    <h2>Login to View Our Projects</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
   </div>
-  <div id="overlay" aria-hidden="true"></div>
 
   <script>
-    // Dark mode toggle with localStorage
-    const darkToggle = document.getElementById('darkToggle');
-    const body = document.body;
-
-    function setDarkMode(enabled) {
-      if (enabled) {
-        body.classList.add('dark');
-        darkToggle.textContent = 'Light Mode';
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      // Just a demo login for now
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      
+      if (username === "admin" && password === "devtools123") {
+        window.location.href = "projects.html";
       } else {
-        body.classList.remove('dark');
-        darkToggle.textContent = 'Dark Mode';
-      }
-      localStorage.setItem('darkMode', enabled ? 'true' : 'false');
-    }
-
-    darkToggle.addEventListener('click', () => {
-      setDarkMode(!body.classList.contains('dark'));
-    });
-
-    // Initialize dark mode based on preference or system
-    const savedMode = localStorage.getItem('darkMode');
-    if (savedMode === 'true') {
-      setDarkMode(true);
-    } else if (!savedMode) {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setDarkMode(prefersDark);
-    }
-
-    // Back to top button logic
-    const toTopBtn = document.getElementById('toTopBtn');
-
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        toTopBtn.classList.add('show');
-      } else {
-        toTopBtn.classList.remove('show');
+        alert("Invalid login. Try admin/devtools123");
       }
     });
-
-    toTopBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // Cookie consent
-    const cookieConsent = document.getElementById('cookieConsent');
-    const acceptCookies = document.getElementById('acceptCookies');
-    const overlay = document.getElementById('overlay');
-
-    function setCookie(name, value, days) {
-      const expires = new Date(Date.now() + days * 864e5).toUTCString();
-      document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
-    }
-
-    function getCookie(name) {
-      return document.cookie.split('; ').reduce((r, v) => {
-        const parts = v.split('=');
-        return parts[0] === name ? decodeURIComponent(parts[1]) : r
-      }, '');
-    }
-
-    function showCookieConsent(show) {
-      if (show) {
-        cookieConsent.classList.add('show');
-        overlay.classList.add('show');
-        document.body.style.overflow = 'hidden'; // prevent scroll while visible
-      } else {
-        cookieConsent.classList.remove('show');
-        overlay.classList.remove('show');
-        document.body.style.overflow = ''; // restore scroll
-      }
-    }
-
-    // Check cookie on load
-    if (!getCookie('acceptedCookies')) {
-      showCookieConsent(true);
-    }
-
-    acceptCookies.addEventListener('click', () => {
-      setCookie('acceptedCookies', 'true', 365);
-      showCookieConsent(false);
-    });
-
   </script>
 </body>
 </html>
